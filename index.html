@@ -481,6 +481,9 @@
             <div class="switch-form">
                 Pas de compte? <a onclick="switchModal('login-modal', 'register-modal')">S'inscrire</a>
             </div>
+            <div class="switch-form">
+                <a onclick="switchModal('login-modal', 'forgot-password-modal')">Mot de passe oublié?</a>
+            </div>
         </div>
     </div>
     
@@ -509,6 +512,40 @@
             <div class="message" id="register-message"></div>
             <div class="switch-form">
                 Déjà un compte? <a onclick="switchModal('register-modal', 'login-modal')">Se connecter</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Mot de passe oublié -->
+    <div class="auth-modal" id="forgot-password-modal">
+        <div class="auth-form">
+            <span class="close-btn" onclick="closeModal('forgot-password-modal')">&times;</span>
+            <h2>Récupération de mot de passe</h2>
+            <div class="form-group">
+                <label for="forgot-email">Email associé à votre compte</label>
+                <input type="email" id="forgot-email" required>
+            </div>
+            <div id="forgot-step-1">
+                <button onclick="requestPasswordReset()">Envoyer un lien de réinitialisation</button>
+            </div>
+            <div id="forgot-step-2" style="display: none;">
+                <div class="form-group">
+                    <label for="verification-code">Code de vérification</label>
+                    <input type="text" id="verification-code" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Nouveau mot de passe</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-password">Confirmer le nouveau mot de passe</label>
+                    <input type="password" id="confirm-new-password" required>
+                </div>
+                <button onclick="resetPassword()">Réinitialiser le mot de passe</button>
+            </div>
+            <div class="message" id="forgot-message"></div>
+            <div class="switch-form">
+                <a onclick="switchModal('forgot-password-modal', 'login-modal')">Retour à la connexion</a>
             </div>
         </div>
     </div>
@@ -682,6 +719,127 @@
         function logout() {
             sessionStorage.removeItem('currentUser');
             updateAuthDisplay();
+        }
+        
+        // Fonctions pour la récupération de mot de passe
+        function requestPasswordReset() {
+            const email = document.getElementById('forgot-email').value;
+            const messageEl = document.getElementById('forgot-message');
+            messageEl.style.display = 'block';
+            
+            if (!email) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Veuillez entrer votre adresse email';
+                return;
+            }
+            
+            // Vérification du format de l'email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Format d\'email invalide';
+                return;
+            }
+            
+            // Vérifier si l'email existe dans la base d'utilisateurs
+            const users = getUsers();
+            const user = users.find(u => u.email === email);
+            
+            if (!user) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Aucun compte associé à cet email';
+                return;
+            }
+            
+            // Générer un code de vérification (6 chiffres)
+            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            // Stocker temporairement le code et l'utilisateur
+            localStorage.setItem('resetPasswordUser', JSON.stringify({
+                username: user.username,
+                email: user.email,
+                code: verificationCode,
+                timestamp: Date.now()
+            }));
+            
+            // Afficher le message et passer à l'étape 2
+            messageEl.className = 'message success';
+            messageEl.textContent = 'Un code de vérification a été envoyé à votre adresse email. Pour cette démonstration, le code est: ' + verificationCode;
+            
+            document.getElementById('forgot-step-1').style.display = 'none';
+            document.getElementById('forgot-step-2').style.display = 'block';
+        }
+        
+        function resetPassword() {
+            const verificationCode = document.getElementById('verification-code').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmNewPassword = document.getElementById('confirm-new-password').value;
+            const messageEl = document.getElementById('forgot-message');
+            
+            // Vérifier si les champs sont remplis
+            if (!verificationCode || !newPassword || !confirmNewPassword) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Veuillez remplir tous les champs';
+                return;
+            }
+            
+            // Vérifier que les mots de passe correspondent
+            if (newPassword !== confirmNewPassword) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Les mots de passe ne correspondent pas';
+                return;
+            }
+            
+            // Récupérer les informations de réinitialisation
+            const resetInfo = JSON.parse(localStorage.getItem('resetPasswordUser'));
+            
+            if (!resetInfo) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'La session de réinitialisation a expiré. Veuillez recommencer.';
+                return;
+            }
+            
+            // Vérifier que le code est correct
+            if (resetInfo.code !== verificationCode) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Code de vérification incorrect';
+                return;
+            }
+            
+            // Vérifier que le code n'a pas expiré (validité de 10 minutes)
+            const tenMinutes = 10 * 60 * 1000;
+            if (Date.now() - resetInfo.timestamp > tenMinutes) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Le code de vérification a expiré. Veuillez recommencer.';
+                localStorage.removeItem('resetPasswordUser');
+                return;
+            }
+            
+            // Mise à jour du mot de passe
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.email === resetInfo.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].password = newPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                messageEl.className = 'message success';
+                messageEl.textContent = 'Votre mot de passe a été réinitialisé avec succès!';
+                
+                // Nettoyer les informations de réinitialisation
+                localStorage.removeItem('resetPasswordUser');
+                
+                // Rediriger vers la page de connexion après 2 secondes
+                setTimeout(() => {
+                    document.getElementById('forgot-step-1').style.display = 'block';
+                    document.getElementById('forgot-step-2').style.display = 'none';
+                    document.getElementById('forgot-email').value = '';
+                    document.getElementById('verification-code').value = '';
+                    document.getElementById('new-password').value = '';
+                    document.getElementById('confirm-new-password').value = '';
+                    switchModal('forgot-password-modal', 'login-modal');
+                }, 2000);
+            }
         }
         
         // Initialisation des événements
