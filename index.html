@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio Informatique</title>
+    <style>
+        /* CSS Reset et style de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* En-tête */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #333;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 1rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #2575fc;
+        }
+        
+        /* Contenu principal */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: 3rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        section h2 {
+            color: #2575fc;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card .price {
+            color: #2575fc;
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Compétences */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .skill-tag {
+            background-color: #e9f0ff;
+            color: #2575fc;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        /* Contact */
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .contact-form .full-width {
+            grid-column: 1 / 3;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+        
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #1a65e0;
+        }
+        
+        /* Pied de page */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        footer p {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        
+        /* Media queries pour la responsivité */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form .full-width {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ton Nom</h1>
+        <p>Services Informatiques & Développement Web</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#skills">Compétences</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <section id="services">
+            <h2>Mes Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Création de Site Web</h3>
+                    <p>Je crée des sites web sur mesure pour particuliers, associations et petites entreprises.</p>
+                    <p class="price">À partir de 50€</p>
+                </div>
+                <div class="service-card">
+                    <h3>Tutorat en Informatique</h3>
+                    <p>Cours d'initiation à la programmation et à l'utilisation d'outils informatiques.</p>
+                    <p class="price">15€/heure</p>
+                </div>
+                <div class="service-card">
+                    <h3>Assistance Technique</h3>
+                    <p>Dépannage informatique, installation de logiciels et optimisation de performance.</p>
+                    <p class="price">20€/heure</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about">
+            <h2>À Propos de Moi</h2>
+            <p>Bonjour ! Je suis un jeune passionné d'informatique qui propose des services à prix abordables. Actuellement en apprentissage constant, je maîtrise déjà plusieurs langages de programmation et outils informatiques.</p>
+            <p>Mon objectif est de vous aider à résoudre vos problèmes technologiques tout en développant mes compétences. Je suis disponible principalement les week-ends et pendant les vacances scolaires.</p>
+        </section>
+        
+        <section id="skills">
+            <h2>Mes Compétences</h2>
+            <div class="skills-container">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Dépannage PC</span>
+                <span class="skill-tag">Installation logicielle</span>
+                <span class="skill-tag">Réseaux sociaux</span>
+                <span class="skill-tag">Wordpress</span>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Me Contacter</h2>
+            <form class="contact-form" action="https://formspree.io/ton-email@exemple.com" method="POST">
+                <div>
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Votre email">
+                </div>
+                <div class="full-width">
+                    <label for="subject">Sujet</label>
+                    <input type="text" id="subject" name="subject" placeholder="Sujet de votre message">
+                </div>
+                <div class="full-width">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Votre message..."></textarea>
+                </div>
+                <div class="full-width">
+                    <button class="btn" type="submit">Envoyer</button>
+                </div>
+            </form>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2025 Ton Nom - Services Informatiques</p>
+        <p>Email: ton.email@exemple.com | Tél: 06 XX XX XX XX</p>
+        <div class="social-links">
+            <!-- Utilisation de simples caractères pour représenter des icônes -->
+            <a href="#">■</a>
+            <a href="#">●</a>
+            <a href="#">★</a>
+        </div>
+    </footer>
+</body>
+</html>
