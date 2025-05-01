@@ -3,84 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription et Connexion</title>
+    <title>Mon Portfolio Informatique</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white;
+        /* CSS Reset et style de base */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* En-tête */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Boutons d'authentification */
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .auth-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .auth-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #333;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            list-style: none;
         }
+        
+        nav ul li {
+            margin: 0 1rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #2575fc;
+        }
+        
+        /* Contenu principal */
         .container {
-            width: 100%;
-            max-width: 400px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
-        .form-container {
+        
+        /* Sections */
+        section {
+            margin-bottom: 3rem;
             background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
-        h2 {
-            text-align: center;
+        
+        section h2 {
+            color: #2575fc;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card h3 {
             color: #333;
+            margin-bottom: 1rem;
         }
-        .form-group {
-            margin-bottom: 15px;
+        
+        .service-card .price {
+            color: #2575fc;
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.2rem;
         }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
+        
+        /* Compétences */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
-        input {
+        
+        .skill-tag {
+            background-color: #e9f0ff;
+            color: #2575fc;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        /* Contact */
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .contact-form .full-width {
+            grid-column: 1 / 3;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
+        }
+        
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #1a65e0;
+        }
+        
+        /* Pied de page */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        footer p {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        
+        /* Styles pour les formulaires d'authentification */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .auth-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .auth-form h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #2575fc;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .auth-form .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .auth-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        button {
+        
+        .auth-form button {
             width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            background-color: #2575fc;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: 500;
         }
-        button:hover {
-            background-color: #45a049;
+        
+        .auth-form button:hover {
+            background-color: #1a65e0;
         }
-        .switch {
+        
+        .auth-form .switch-form {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 1rem;
         }
-        .switch a {
-            color: #4CAF50;
+        
+        .auth-form .switch-form a {
+            color: #2575fc;
             text-decoration: none;
+            cursor: pointer;
         }
-        .success-message {
-            color: green;
+        
+        .auth-form .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .message {
+            padding: 0.5rem;
+            margin-top: 1rem;
+            border-radius: 4px;
             text-align: center;
-            margin-top: 10px;
             display: none;
         }
-        .error-message {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Welcome message */
+        .welcome-message {
             display: none;
+            text-align: right;
+            margin-right: 20px;
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Media queries pour la responsivité */
+        @media (max-width: 768px) {
+            .auth-buttons {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form .full-width {
+                grid-column: 1;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="auth-buttons">
+            <button class="auth-btn" id="login-button">Connexion</button>
+            <button class="auth-btn" id="register-button">Inscription</button>
+            <span class="welcome-message" id="welcome-message"></span>
+        </div>
+        <h1>Ton Nom</h1>
+        <p>Services Informatiques & Développement Web</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#skills">Compétences</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
     <div class="container">
-        <div class="form-container" id="register-form">
+        <section id="services">
+            <h2>Mes Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Création de Site Web</h3>
+                    <p>Je crée des sites web sur mesure pour particuliers, associations et petites entreprises.</p>
+                    <p class="price">À partir de 50€</p>
+                </div>
+                <div class="service-card">
+                    <h3>Tutorat en Informatique</h3>
+                    <p>Cours d'initiation à la programmation et à l'utilisation d'outils informatiques.</p>
+                    <p class="price">15€/heure</p>
+                </div>
+                <div class="service-card">
+                    <h3>Assistance Technique</h3>
+                    <p>Dépannage informatique, installation de logiciels et optimisation de performance.</p>
+                    <p class="price">20€/heure</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about">
+            <h2>À Propos de Moi</h2>
+            <p>Bonjour ! Je suis un jeune passionné d'informatique qui propose des services à prix abordables. Actuellement en apprentissage constant, je maîtrise déjà plusieurs langages de programmation et outils informatiques.</p>
+            <p>Mon objectif est de vous aider à résoudre vos problèmes technologiques tout en développant mes compétences. Je suis disponible principalement les week-ends et pendant les vacances scolaires.</p>
+        </section>
+        
+        <section id="skills">
+            <h2>Mes Compétences</h2>
+            <div class="skills-container">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Dépannage PC</span>
+                <span class="skill-tag">Installation logicielle</span>
+                <span class="skill-tag">Réseaux sociaux</span>
+                <span class="skill-tag">Wordpress</span>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Me Contacter</h2>
+            <form class="contact-form" action="https://formspree.io/f/mldbjeby" method="POST">
+                <div>
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Votre email">
+                </div>
+                <div class="full-width">
+                    <label for="subject">Sujet</label>
+                    <input type="text" id="subject" name="subject" placeholder="Sujet de votre message">
+                </div>
+                <div class="full-width">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Votre message..."></textarea>
+                </div>
+                <div class="full-width">
+                    <button class="btn" type="submit">Envoyer</button>
+                </div>
+            </form>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2025 Ton Nom - Services Informatiques</p>
+        <p>Email: userdrg0@gmail.com | Tél: 06 XX XX XX XX</p>
+        <div class="social-links">
+            <!-- Utilisation de simples caractères pour représenter des icônes -->
+            <a href="#">■</a>
+            <a href="#">●</a>
+            <a href="#">★</a>
+        </div>
+    </footer>
+    
+    <!-- Modal Connexion -->
+    <div class="auth-modal" id="login-modal">
+        <div class="auth-form">
+            <span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
+            <h2>Connexion</h2>
+            <div class="form-group">
+                <label for="login-username">Nom d'utilisateur</label>
+                <input type="text" id="login-username" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Mot de passe</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button onclick="login()">Se connecter</button>
+            <div class="message" id="login-message"></div>
+            <div class="switch-form">
+                Pas de compte? <a onclick="switchModal('login-modal', 'register-modal')">S'inscrire</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Inscription -->
+    <div class="auth-modal" id="register-modal">
+        <div class="auth-form">
+            <span class="close-btn" onclick="closeModal('register-modal')">&times;</span>
             <h2>Inscription</h2>
             <div class="form-group">
                 <label for="register-username">Nom d'utilisateur</label>
@@ -99,38 +506,13 @@
                 <input type="password" id="register-confirm-password" required>
             </div>
             <button onclick="register()">S'inscrire</button>
-            <div class="switch">
-                Déjà un compte? <a href="#" onclick="toggleForms()">Se connecter</a>
+            <div class="message" id="register-message"></div>
+            <div class="switch-form">
+                Déjà un compte? <a onclick="switchModal('register-modal', 'login-modal')">Se connecter</a>
             </div>
-            <div class="success-message" id="register-success">Inscription réussie! Vous pouvez maintenant vous connecter.</div>
-            <div class="error-message" id="register-error"></div>
-        </div>
-
-        <div class="form-container" id="login-form" style="display: none;">
-            <h2>Connexion</h2>
-            <div class="form-group">
-                <label for="login-username">Nom d'utilisateur</label>
-                <input type="text" id="login-username" required>
-            </div>
-            <div class="form-group">
-                <label for="login-password">Mot de passe</label>
-                <input type="password" id="login-password" required>
-            </div>
-            <button onclick="login()">Se connecter</button>
-            <div class="switch">
-                Pas de compte? <a href="#" onclick="toggleForms()">S'inscrire</a>
-            </div>
-            <div class="success-message" id="login-success">Connexion réussie!</div>
-            <div class="error-message" id="login-error"></div>
-        </div>
-
-        <div class="form-container" id="welcome-page" style="display: none;">
-            <h2>Bienvenue!</h2>
-            <p style="text-align: center;">Vous êtes connecté avec succès.</p>
-            <button onclick="logout()">Déconnexion</button>
         </div>
     </div>
-
+    
     <script>
         // Stockage des utilisateurs simulé (localStorage)
         function getUsers() {
@@ -143,30 +525,49 @@
             users.push(user);
             localStorage.setItem('users', JSON.stringify(users));
         }
-
-        // Basculer entre les formulaires d'inscription et de connexion
-        function toggleForms() {
-            const registerForm = document.getElementById('register-form');
-            const loginForm = document.getElementById('login-form');
-            const welcomePage = document.getElementById('welcome-page');
+        
+        // Gérer l'affichage des boutons d'authentification
+        function updateAuthDisplay() {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            const loginButton = document.getElementById('login-button');
+            const registerButton = document.getElementById('register-button');
+            const welcomeMessage = document.getElementById('welcome-message');
             
-            if (registerForm.style.display === 'none') {
-                registerForm.style.display = 'block';
-                loginForm.style.display = 'none';
-                welcomePage.style.display = 'none';
+            if (currentUser) {
+                loginButton.style.display = 'none';
+                registerButton.textContent = 'Déconnexion';
+                registerButton.onclick = logout;
+                welcomeMessage.textContent = `Bienvenue, ${currentUser.username} !`;
+                welcomeMessage.style.display = 'block';
             } else {
-                registerForm.style.display = 'none';
-                loginForm.style.display = 'block';
-                welcomePage.style.display = 'none';
+                loginButton.style.display = 'block';
+                registerButton.textContent = 'Inscription';
+                registerButton.onclick = function() { openModal('register-modal'); };
+                welcomeMessage.style.display = 'none';
             }
-            
-            // Réinitialiser les messages d'erreur et de succès
-            document.getElementById('register-success').style.display = 'none';
-            document.getElementById('register-error').style.display = 'none';
-            document.getElementById('login-success').style.display = 'none';
-            document.getElementById('login-error').style.display = 'none';
         }
-
+        
+        // Afficher/Masquer les modals
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            
+            // Réinitialiser les messages
+            const messageEl = document.getElementById(modalId.replace('modal', 'message'));
+            if (messageEl) {
+                messageEl.style.display = 'none';
+                messageEl.className = 'message';
+            }
+        }
+        
+        function switchModal(fromModalId, toModalId) {
+            closeModal(fromModalId);
+            openModal(toModalId);
+        }
+        
         // Fonction d'inscription
         function register() {
             const username = document.getElementById('register-username').value;
@@ -174,46 +575,42 @@
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-confirm-password').value;
             
-            const registerSuccess = document.getElementById('register-success');
-            const registerError = document.getElementById('register-error');
-            
-            // Réinitialiser les messages
-            registerSuccess.style.display = 'none';
-            registerError.style.display = 'none';
+            const messageEl = document.getElementById('register-message');
+            messageEl.style.display = 'block';
             
             // Validation des champs
             if (!username || !email || !password || !confirmPassword) {
-                registerError.textContent = 'Veuillez remplir tous les champs';
-                registerError.style.display = 'block';
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Veuillez remplir tous les champs';
                 return;
             }
             
             // Vérification du format de l'email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                registerError.textContent = 'Format d\'email invalide';
-                registerError.style.display = 'block';
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Format d\'email invalide';
                 return;
             }
             
             // Vérification que les mots de passe correspondent
             if (password !== confirmPassword) {
-                registerError.textContent = 'Les mots de passe ne correspondent pas';
-                registerError.style.display = 'block';
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Les mots de passe ne correspondent pas';
                 return;
             }
             
             // Vérifier si l'utilisateur existe déjà
             const users = getUsers();
             if (users.some(user => user.username === username)) {
-                registerError.textContent = 'Ce nom d\'utilisateur existe déjà';
-                registerError.style.display = 'block';
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Ce nom d\'utilisateur existe déjà';
                 return;
             }
             
             if (users.some(user => user.email === email)) {
-                registerError.textContent = 'Cet email est déjà utilisé';
-                registerError.style.display = 'block';
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Cet email est déjà utilisé';
                 return;
             }
             
@@ -227,7 +624,8 @@
             saveUser(user);
             
             // Afficher le message de succès
-            registerSuccess.style.display = 'block';
+            messageEl.className = 'message success';
+            messageEl.textContent = 'Inscription réussie! Vous pouvez maintenant vous connecter.';
             
             // Réinitialiser le formulaire
             document.getElementById('register-username').value = '';
@@ -237,26 +635,22 @@
             
             // Rediriger vers le formulaire de connexion après 2 secondes
             setTimeout(() => {
-                toggleForms();
+                switchModal('register-modal', 'login-modal');
             }, 2000);
         }
-
+        
         // Fonction de connexion
         function login() {
             const username = document.getElementById('login-username').value;
             const password = document.getElementById('login-password').value;
             
-            const loginSuccess = document.getElementById('login-success');
-            const loginError = document.getElementById('login-error');
-            
-            // Réinitialiser les messages
-            loginSuccess.style.display = 'none';
-            loginError.style.display = 'none';
+            const messageEl = document.getElementById('login-message');
+            messageEl.style.display = 'block';
             
             // Validation des champs
             if (!username || !password) {
-                loginError.textContent = 'Veuillez remplir tous les champs';
-                loginError.style.display = 'block';
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Veuillez remplir tous les champs';
                 return;
             }
             
@@ -265,44 +659,56 @@
             const user = users.find(u => u.username === username && u.password === password);
             
             if (!user) {
-                loginError.textContent = 'Nom d\'utilisateur ou mot de passe incorrect';
-                loginError.style.display = 'block';
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Nom d\'utilisateur ou mot de passe incorrect';
                 return;
             }
             
             // Connexion réussie
-            loginSuccess.style.display = 'block';
+            messageEl.className = 'message success';
+            messageEl.textContent = 'Connexion réussie!';
             
             // Enregistrer la session
             sessionStorage.setItem('currentUser', JSON.stringify(user));
             
-            // Rediriger vers la page de bienvenue
+            // Fermer le modal après 1 seconde
             setTimeout(() => {
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('welcome-page').style.display = 'block';
+                closeModal('login-modal');
+                updateAuthDisplay();
             }, 1000);
         }
-
+        
         // Fonction de déconnexion
         function logout() {
             sessionStorage.removeItem('currentUser');
-            document.getElementById('welcome-page').style.display = 'none';
-            document.getElementById('login-form').style.display = 'block';
-            
-            // Réinitialiser le formulaire de connexion
-            document.getElementById('login-username').value = '';
-            document.getElementById('login-password').value = '';
+            updateAuthDisplay();
         }
-
-        // Vérifier si l'utilisateur est déjà connecté
-        window.onload = function() {
-            const currentUser = sessionStorage.getItem('currentUser');
-            if (currentUser) {
-                document.getElementById('register-form').style.display = 'none';
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('welcome-page').style.display = 'block';
-            }
-        };
+        
+        // Initialisation des événements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si l'utilisateur est déjà connecté
+            updateAuthDisplay();
+            
+            // Ajouter les événements pour les boutons
+            document.getElementById('login-button').addEventListener('click', function() {
+                openModal('login-modal');
+            });
+            
+            document.getElementById('register-button').addEventListener('click', function() {
+                if (this.textContent === 'Inscription') {
+                    openModal('register-modal');
+                } else {
+                    logout();
+                }
+            });
+            
+            // Fermer les modals si on clique en dehors
+            window.onclick = function(event) {
+                if (event.target.classList.contains('auth-modal')) {
+                    closeModal(event.target.id);
+                }
+            };
+        });
     </script>
 </body>
 </html>
